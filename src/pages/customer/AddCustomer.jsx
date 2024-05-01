@@ -24,6 +24,7 @@ const AddCustomerForm = () => {
       });
       setName("");
       setEmail("");
+
       setPhoneNumber("");
       navigate("/customers");
       alert("customer created successfully");
