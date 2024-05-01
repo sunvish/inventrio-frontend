@@ -3,8 +3,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
@@ -12,18 +12,29 @@ const Login = () => {
     try {
       e.preventDefault();
       const formData = { email, password };
-      await fetch("http://localhost:4000/merchant/sign-in", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const data = await fetch(
+        "http://localhost:4000/merchant/sign-in",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
         },
-        body: JSON.stringify(formData),
-      });
+        { withCredentials: true }
+      );
 
-      setEmail("");
-      setPassword("");
+      if (data.ok === true) {
+        navigate("/");
+        let jsonData = await data.json();
+        console.log(jsonData.token);
+        localStorage.setItem("token", jsonData.token);
+      }
 
-      navigate("/home");
+      if (data.ok === false) {
+        setEmail("");
+        setPassword("");
+      }
     } catch (error) {
       console.log(error.message);
     }
