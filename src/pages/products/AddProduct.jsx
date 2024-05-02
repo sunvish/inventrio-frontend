@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-const AddCustomerForm = () => {
+const AddProductForm = () => {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [stock, setStock] = useState("");
+  const [cost, setCost] = useState("");
 
-  const formData = { name, email, phoneNumber };
+  const formData = { name, price, description, stock, cost };
   let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -14,20 +16,19 @@ const AddCustomerForm = () => {
       console.log(formData);
       console.log(JSON.stringify(formData));
 
-      const response = await fetch("http://localhost:4000/merchant/customer", {
+      const response = await fetch("http://localhost:4000/merchant/product", {
         method: "POST",
         headers: {
           token: localStorage.getItem("token"),
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email, phoneNumber }),
+        body: JSON.stringify({ name, price, description, stock, cost }),
       });
       setName("");
-      setEmail("");
-
-      setPhoneNumber("");
-      navigate("/customers");
-      alert("customer created successfully");
+      setPrice("");
+      setDescription("");
+      navigate("/product");
+      alert("product added successfully");
     } catch (error) {
       console.log(error.message);
     }
@@ -40,14 +41,14 @@ const AddCustomerForm = () => {
         className="bg-white shadow-md rounded-lg px-10 py-8 max-w-lg"
       >
         <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">
-          Add New Customer
+          Add New product
         </h2>
         <div className="mb-6">
           <label
             className="block text-sm font-semibold text-gray-700 mb-2"
             htmlFor="name"
           >
-            Name
+            Productname
           </label>
           <input
             className="w-full px-4 py-2 text-gray-700 bg-gray-200 rounded-lg focus:outline-none focus:bg-white focus:border-blue-500"
@@ -62,34 +63,64 @@ const AddCustomerForm = () => {
         <div className="mb-6">
           <label
             className="block text-sm font-semibold text-gray-700 mb-2"
-            htmlFor="email"
+            htmlFor="price"
           >
-            Email
+            price
           </label>
           <input
             className="w-full px-4 py-2 text-gray-700 bg-gray-200 rounded-lg focus:outline-none focus:bg-white focus:border-blue-500"
-            id="email"
-            type="email"
-            placeholder="Enter email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            id="price"
+            type="text"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
             required
           />
         </div>
         <div className="mb-6">
           <label
             className="block text-sm font-semibold text-gray-700 mb-2"
-            htmlFor="phoneNumber"
+            htmlFor="description"
           >
-            Phone Number
+            description
           </label>
           <input
             className="w-full px-4 py-2 text-gray-700 bg-gray-200 rounded-lg focus:outline-none focus:bg-white focus:border-blue-500"
-            id="phoneNumber"
-            type="tel"
-            placeholder="Enter phone number"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
+            id="description"
+            type="text"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+        </div>
+        <div className="mb-6">
+          <label
+            className="block text-sm font-semibold text-gray-700 mb-2"
+            htmlFor="Stock"
+          >
+            Stock
+          </label>
+          <input
+            className="w-full px-4 py-2 text-gray-700 bg-gray-200 rounded-lg focus:outline-none focus:bg-white focus:border-blue-500"
+            id="Stock"
+            type="text"
+            value={stock}
+            onChange={(e) => setStock(e.target.value)}
+            required
+          />
+        </div>
+        <div className="mb-6">
+          <label
+            className="block text-sm font-semibold text-gray-700 mb-2"
+            htmlFor="Cost"
+          >
+            Cost
+          </label>
+          <input
+            className="w-full px-4 py-2 text-gray-700 bg-gray-200 rounded-lg focus:outline-none focus:bg-white focus:border-blue-500"
+            id="Cost"
+            type="text"
+            value={cost}
+            onChange={(e) => setCost(e.target.value)}
             required
           />
         </div>
@@ -98,7 +129,7 @@ const AddCustomerForm = () => {
             className="bg-gradient-to-br from-blue-500 via-purple-600 to-pink-700 text-white font-semibold py-2 px-8 rounded-lg focus:outline-none focus:shadow-outline transition duration-300"
             type="submit"
           >
-            Add Customer
+            Add Product
           </button>
         </div>
       </form>
@@ -106,4 +137,4 @@ const AddCustomerForm = () => {
   );
 };
 
-export default AddCustomerForm;
+export default AddProductForm;

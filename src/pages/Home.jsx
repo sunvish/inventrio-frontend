@@ -9,9 +9,11 @@ const Home = () => {
           Customers
         </button>
       </Link>
-      <button className="px-20 py-20 bg-gray-300 text-gray-800 rounded-lg shadow-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50">
-        Products
-      </button>
+      <Link to="/product">
+        <button className="px-20 py-20 bg-gray-300 text-gray-800 rounded-lg shadow-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50">
+          Products
+        </button>
+      </Link>
       <button className="px-20 py-20 bg-gray-300 text-gray-800 rounded-lg shadow-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50">
         Vendors
       </button>
